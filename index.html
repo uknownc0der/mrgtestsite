@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marketing Redefined Group | MRG</title>
+    <style>
+        /* Base Reset & Variables */
+        :root {
+            --bg-color: #000000;
+            --text-main: #f5f5f7;
+            --text-muted: #86868b;
+            --accent: #00f2fe;
+            --nav-bg: rgba(0, 0, 0, 0.7);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            cursor: none; /* Hide default cursor for custom one */
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: -apple-system, BlinkMacSystemFont, "San Francisco", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+            line-height: 1.5;
+            background-image: radial-gradient(circle at center, #111 1px, transparent 1px);
+            background-size: 30px 30px;
+            background-attachment: fixed; /* Parallax dots */
+        }
+
+        /* Custom Cursor */
+        .cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--accent);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 10000;
+            transform: translate(-50%, -50%);
+            transition: width 0.2s, height 0.2s, background-color 0.2s;
+        }
+        .cursor.hovering {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(0, 242, 254, 0.1);
+        }
+
+        /* Frosted Glass Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 48px;
+            background: var(--nav-bg);
+            backdrop-filter: saturate(180%) blur(20px);
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            z-index: 9999;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        nav a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 12px;
+            letter-spacing: -0.01em;
+            opacity: 0.8;
+            transition: opacity 0.2s ease;
+        }
+
+        nav a:hover {
+            opacity: 1;
+        }
+
+        nav .logo {
+            font-weight: 600;
+            opacity: 1;
+            font-size: 14px;
+            letter-spacing: 1px;
+        }
+
+        /* Layout & Sections */
+        section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 80px 20px;
+            position: relative;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .split-container {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            gap: 60px;
+            text-align: left;
+            width: 100%;
+        }
+
+        .split-text {
+            flex: 1;
+        }
+
+        .split-visual {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            position: relative;
+        }
+
+        /* Typography */
+        h1 {
+            font-size: clamp(3rem, 6vw, 5.5rem);
+            font-weight: 700;
+            letter-spacing: -0.05em;
+            line-height: 1.05;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 600;
+            letter-spacing: -0.04em;
+            margin-bottom: 20px;
+        }
+
+        p.lead {
+            font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+            color: var(--text-muted);
+            font-weight: 400;
+            letter-spacing: -0.01em;
+            max-width: 600px;
+            margin-bottom: 40px;
+        }
+
+        /* Gradients */
+        .gradient-text {
+            background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .gradient-text-2 {
+            background: linear-gradient(90deg, #3b82f6 0%, #2dd4bf 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            background-color: var(--text-main);
+            color: var(--bg-color);
+            padding: 14px 28px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 17px;
+            font-weight: 600;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            border: none;
+        }
+
+        .btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 20px rgba(0, 242, 254, 0.4);
+        }
+
+        /* 3D iPhone Mockup */
+        .iphone-mockup {
+            width: 280px;
+            height: 560px;
+            border-radius: 40px;
+            background: #000;
+            border: 12px solid #1c1c1e;
+            box-shadow: 0 20px 50px rgba(0,242,254,0.15), inset 0 0 10px rgba(255,255,255,0.1);
+            position: relative;
+            animation: float 6s ease-in-out infinite;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            overflow: hidden;
+        }
+
+        .iphone-notch {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 25px;
+            background: #1c1c1e;
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius: 15px;
+            z-index: 2;
+        }
+
+        .bubble {
+            background: linear-gradient(135deg, #007aff, #00f2fe);
+            color: #fff;
+            padding: 12px 18px;
+            border-radius: 20px;
+            font-size: 14px;
+            margin-top: 60px;
+            align-self: flex-end;
+            max-width: 85%;
+            border-bottom-right-radius: 4px;
+            box-shadow: 0 10px 20px rgba(0, 122, 255, 0.3);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            animation-delay: 1s;
+        }
+
+        /* Browser Mockup */
+        .browser-mockup {
+            width: 100%;
+            max-width: 500px;
+            background: rgba(20, 20, 22, 0.8);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            transform: perspective(1000px) rotateY(-5deg);
+            transition: transform 0.5s ease;
+        }
+
+        .browser-mockup:hover {
+            transform: perspective(1000px) rotateY(0deg);
+        }
+
+        .browser-header {
+            background: rgba(255,255,255,0.05);
+            padding: 12px;
+            display: flex;
+            gap: 6px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #ff5f56;
+        }
+        .dot:nth-child(2) { background: #ffbd2e; }
+        .dot:nth-child(3) { background: #27c93f; }
+
+        .dashboard-widgets {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .widget {
+            background: rgba(0,0,0,0.4);
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .widget-title {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .progress-bar-bg {
+            height: 8px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--accent);
+            width: 0%;
+            border-radius: 4px;
+            transition: width 1.5s ease-out;
+        }
+
+        .roi-chart {
+            display: flex;
+            align-items: flex-end;
+            gap: 10px;
+            height: 60px;
+            margin-top: 10px;
+        }
+
+        .bar {
+            flex: 1;
+            background: linear-gradient(to top, #3b82f6, #2dd4bf);
+            border-radius: 4px 4px 0 0;
+            height: 0%;
+            transition: height 1s ease-out;
+        }
+
+        /* Clients Section */
+        .clients-section {
+            padding: 60px 20px;
+            background-color: #000;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            width: 100%;
+        }
+
+        .clients-heading {
+            font-size: clamp(2rem, 5vw, 4rem);
+            color: var(--text-main);
+            text-transform: none;
+            letter-spacing: -0.04em;
+            margin-bottom: 50px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .logo-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 60px;
+            width: 100%;
+        }
+
+        .client-logo {
+            height: auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.3s ease;
+            text-decoration: none;
+        }
+
+        .client-logo:hover {
+            transform: scale(1.05);
+        }
+        
+        /* Form */
+        .form-container {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 50px;
+            border-radius: 24px;
+            max-width: 500px;
+            width: 100%;
+            backdrop-filter: blur(10px);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-group input, 
+        .form-group select, 
+        .form-group textarea {
+            width: 100%;
+            padding: 16px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            color: var(--text-main);
+            font-size: 16px;
+            font-family: inherit;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .form-group input:focus, 
+        .form-group select:focus, 
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 10px rgba(0, 242, 254, 0.2);
+        }
+
+        /* Animations */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+
+        @keyframes popIn {
+            0% { opacity: 0; transform: translateY(20px) scale(0.9); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 900px) {
+            .split-container {
+                flex-direction: column;
+                text-align: center;
+            }
+            .iphone-mockup { margin-top: 40px; }
+            .browser-mockup { margin-top: 40px; transform: none; }
+            p.lead { margin: 0 auto 40px auto; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="cursor" id="cursor"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <a href="#home" class="logo interactive">MRG</a>
+        <a href="#clients" class="interactive">Trusted By</a>
+        <a href="#about" class="interactive">About</a>
+        <a href="#apply" class="interactive">Apply</a>
+    </nav>
+
+    <!-- Hero / Landing Section -->
+    <section id="home" style="min-height: 100vh;">
+        <div class="container split-container">
+            <div class="split-text fade-in">
+                <h1>Marketing. <br><span class="gradient-text">Redefined.</span></h1>
+                <p class="lead">Precision SMS and Email campaigns engineered for maximum conversion. Reach your audience exactly where they are.</p>
+                <a href="#apply" class="btn interactive">Start your campaign</a>
+            </div>
+            <div class="split-visual fade-in">
+                <div class="iphone-mockup">
+                    <div class="iphone-notch"></div>
+                    <div class="bubble">PFC Alert! 🍗 Craving crispy chicken? Show this text for 20% off any combo meal today only. Tap to order ahead: pfc.com/vip</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Clients Section -->
+    <section id="clients" class="clients-section" style="padding: 100px 20px;">
+        <div class="container split-container">
+            <div class="split-text fade-in">
+                <h2 style="font-size: clamp(2rem, 5vw, 4rem); font-weight: 600; letter-spacing: -0.04em; margin-bottom: 0;">Powering modern campaigns for</h2>
+            </div>
+            
+            <div class="split-visual fade-in">
+                <div class="logo-grid interactive" style="width: auto;">
+                    <a href="https://passaicfriedchicken.com/" target="_blank" rel="noopener noreferrer" class="client-logo">
+                        <div style="display: flex; flex-direction: column; align-items: center; gap: 5px;">
+                            <img src="data:image/png;base64,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" alt="Passaic Fried Chicken" style="height: 55px; width: auto;">
+                            <svg viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg" style="height: 45px; width: auto;">
+                                <text x="50%" y="45%" dominant-baseline="middle" text-anchor="middle" fill="#e31837" font-size="28" font-weight="800" letter-spacing="-1px" font-family="-apple-system, sans-serif">PFC</text>
+                                <text x="50%" y="85%" dominant-baseline="middle" text-anchor="middle" fill="#e31837" font-size="9" font-weight="600" letter-spacing="2px" font-family="-apple-system, sans-serif">PASSAIC FRIED CHICKEN</text>
+                            </svg>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" style="padding: 120px 20px;">
+        <div class="container split-container">
+            <div class="split-text fade-in">
+                <h2>Pro-level reach. <br><span class="gradient-text-2">Zero friction.</span></h2>
+                <p class="lead" style="font-size: 1rem;">We built Marketing Redefined Group to strip away the complexity of digital outreach. Whether you are launching a new product, nurturing leads, or driving immediate sales, our bespoke SMS and Email architecture delivers your message with unprecedented clarity and speed.</p>
+            </div>
+            
+            <div class="split-visual fade-in">
+                <!-- Browser/Dashboard Mockup -->
+                <div class="browser-mockup interactive">
+                    <div class="browser-header">
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                    </div>
+                    <div class="dashboard-widgets">
+                        <div class="widget">
+                            <div class="widget-title">New Customer Acquisition</div>
+                            <div class="progress-bar-bg">
+                                <div class="progress-fill" id="sprint-progress"></div>
+                            </div>
+                        </div>
+                        <div class="widget">
+                            <div class="widget-title">Returning Customer Growth</div>
+                            <div class="roi-chart">
+                                <div class="bar" style="height: 20%;"></div>
+                                <div class="bar" style="height: 45%;"></div>
+                                <div class="bar" style="height: 70%;"></div>
+                                <div class="bar" style="height: 95%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Application / Contact Section -->
+    <section id="apply" style="padding: 80px 20px 120px 20px;">
+        <div class="container">
+            <h2 class="fade-in">Ready to scale?</h2>
+            <p class="lead fade-in" style="margin-bottom: 40px; min-height: auto;">Submit an application to partner with our campaign specialists.</p>
+            
+            <div class="form-container fade-in interactive">
+                <form onsubmit="event.preventDefault(); alert('Application submitted successfully.');">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" required placeholder="Jane Doe">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Work Email</label>
+                        <input type="email" id="email" required placeholder="jane@company.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="service">Service Required</label>
+                        <select id="service" required>
+                            <option value="" disabled selected>Select an option...</option>
+                            <option value="sms">SMS Marketing</option>
+                            <option value="email">Email Campaigns</option>
+                            <option value="both">Integrated (SMS & Email)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="details">Campaign Goals</label>
+                        <textarea id="details" rows="4" required placeholder="Tell us about your audience and objectives..."></textarea>
+                    </div>
+
+                    <button type="submit" class="btn interactive" style="width: 100%; margin-top: 10px;">Submit Application</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Javascript -->
+    <script>
+        // Custom Cursor Logic
+        const cursor = document.getElementById('cursor');
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+
+        const interactiveElements = document.querySelectorAll('.interactive, a, input, select, textarea, button');
+        interactiveElements.forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.classList.add('hovering'));
+            el.addEventListener('mouseleave', () => cursor.classList.remove('hovering'));
+        });
+
+        // Smooth scrolling
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                window.scrollTo({ top: targetElement.offsetTop, behavior: 'smooth' });
+            });
+        });
+
+        // Intersection Observer for Animations & Dashboards
+        const observerOptions = { root: null, rootMargin: '0px', threshold: 0.15 };
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    
+                    // Trigger Dashboard animations when visible
+                    if(entry.target.querySelector('.browser-mockup')) {
+                        setTimeout(() => {
+                            document.getElementById('sprint-progress').style.width = '85%';
+                        }, 500);
+                    }
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(element => {
+            observer.observe(element);
+        });
+    </script>
+</body>
+</html>
